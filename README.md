@@ -1,5 +1,5 @@
 # SkyEngine-Sample-Platformer
-[SkyEngine](http://skyengine.uppercase.io)을 기반으로 만든 플랫포머 샘플 게임입니다.
+[SkyEngine](https://github.com/Hanul/SkyEngine)을 기반으로 만든 플랫포머 샘플 게임입니다.
 
 이미지 리소스 출처 : http://www.kenney.nl/assets/platformer-pack-redux
 

@@ -49,7 +49,9 @@ Platformer.Player = CLASS({
 			ogg : Platformer.R('Sound/jump.ogg')
 		});
 		
-		SkyEngine.Screen.followX(self);
+		SkyEngine.Screen.cameraFollowX({
+			target : self
+		});
 		
 		// 타일과 만났다.
 		self.onMeet(SkyEngine.CollisionTile, (tile) => {

@@ -21,12 +21,16 @@ Platformer.Grass = CLASS({
 			tileWidth : 128,
 			tileHeight : 128,
 			tileKeySet : {
-				1 : SkyEngine.Image({
-					src : Platformer.R('Ground/Grass/grass.png')
-				}),
-				2 : SkyEngine.Image({
-					src : Platformer.R('Tiles/bush.png')
-				})
+				1 : () => {
+					return SkyEngine.Image({
+						src : Platformer.R('Ground/Grass/grass.png')
+					});
+				},
+				2 : () => {
+					return SkyEngine.Image({
+						src : Platformer.R('Tiles/bush.png')
+					});
+				}
 			},
 			tileKeyMap : [
 				[2, 0, 0, 0, 0, 0, 0, 0, 0],

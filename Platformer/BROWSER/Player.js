@@ -53,7 +53,7 @@ Platformer.Player = CLASS({
 			target : self
 		});
 		
-		// 타일과 만났다.
+		// 충돌 타일과 만난 경우
 		self.onMeet(SkyEngine.CollisionTile, (tile) => {
 			
 			if (self.getBeforeY() <= lands.getY() + tile.getY() - lands.getTileHeight() / 2) {
@@ -83,7 +83,7 @@ Platformer.Player = CLASS({
 			}
 		});
 		
-		// 땅과 떨어졌다.
+		// 충돌 타일과 떨어진 경우
 		self.onPart(lands, () => {
 			self.setAccelY(Platformer.Global.gravity);
 			

@@ -20,24 +20,24 @@ Platformer.Grass = CLASS({
 			y : 300,
 			tileWidth : 128,
 			tileHeight : 128,
-			tileKeySet : {
+			tileSet : {
 				1 : () => {
-					return SkyEngine.Image({
-						src : Platformer.R('Ground/Grass/grass.png')
+					return SkyEngine.CollisionTile({
+						c : SkyEngine.Image({
+							src : Platformer.R('Ground/Grass/grass.png')
+						})
 					});
 				},
 				2 : () => {
-					return SkyEngine.Image({
-						src : Platformer.R('Tiles/bush.png')
+					return SkyEngine.Tile({
+						c : SkyEngine.Image({
+							src : Platformer.R('Tiles/bush.png')
+						})
 					});
 				}
 			},
 			tileKeyMap : [
 				[2, 0, 0, 0, 0, 0, 0, 0, 0],
-				[1, 1, 0, 1, 1, 1, 1, 1, 1]
-			],
-			collisionMap : [
-				[0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[1, 1, 0, 1, 1, 1, 1, 1, 1]
 			]
 		}).appendTo(rootNode);

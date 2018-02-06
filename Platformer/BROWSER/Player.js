@@ -53,16 +53,27 @@ Platformer.Player = CLASS({
 			target : self
 		});
 		
-		// 충돌 타일과 만난 경우
+		let shw = self.getCollider().getWidth() / 2;
+		let sh = self.getCollider().getHeight();
+		
+		// 충돌 타일과 부딪힌 경우
 		self.onMeet(SkyEngine.CollisionTile, (tile) => {
 			
-			if (self.getBeforeY() <= lands.getY() + tile.getY() - lands.getTileHeight() / 2) {
-				self.setY(lands.getY() + tile.getY() - lands.getTileHeight() / 2);
-				self.setAccelY(0);
+			let hw = tile.getCollider().getWidth() / 2;
+			let hh = tile.getCollider().getHeight() / 2;
+			
+			// 아래로 부딪힘
+			if (
+			self.getBeforeY() <= tile.getY() - hh &&
+			
+			self.getX() - shw < tile.getX() + hw &&
+			tile.getX() - hw < self.getX() + shw) {
+				
+				self.setY(tile.getY() - hh);
 				self.stopDown();
 				
 				if (self.getState() === 'jump') {
-					// 이동중이고, 가속도가 없어야 합니다. (가속도가 있다는 것은 멈추는 중인 상황임)
+					// 이동중이고, 가속도가 없어야 합니다. (가속도가 있다는 것은 멈추는 중인 상황)
 					if (self.getSpeedX() !== 0 && self.getAccelX() === 0) {
 						self.setState('walk');
 					} else {
@@ -71,28 +82,73 @@ Platformer.Player = CLASS({
 				}
 			}
 			
+			// 위로 부딪힘
+			else if (
+			self.getBeforeY() - sh >= tile.getY() + hh &&
+			
+			self.getX() - shw < tile.getX() + hw &&
+			tile.getX() - hw < self.getX() + shw) {
+				
+				self.setY(tile.getY() + hh + sh);
+				self.stopUp();
+			}
+			
+			// 좌우로 부딪힘
 			else {
-				if (self.getSpeedX() < 0) {
-					self.setX(lands.getX() + tile.getX() + lands.getTileWidth() / 2 + self.getColliders()[0].getWidth() / 2);
+				
+				// 왼쪽으로 부딪힘
+				if (
+				self.getBeforeX() - shw >= tile.getX() + hw &&
+				
+				self.getY() - sh < tile.getY() + hh &&
+				tile.getY() - hh < self.getY()) {
+					
+					self.setX(tile.getX() + hw + shw);
 					self.stuckLeft();
 				}
-				if (self.getSpeedX() > 0) {
-					self.setX(lands.getX() + tile.getX() - lands.getTileWidth() / 2 - self.getColliders()[0].getWidth() / 2);
+				
+				// 오른쪽으로 부딪힘
+				if (
+				self.getBeforeX() + shw <= tile.getX() - hw &&
+				
+				self.getY() - sh < tile.getY() + hh &&
+				tile.getY() - hh < self.getY()) {
+					
+					self.setX(tile.getX() - hw - shw);
 					self.stuckRight();
 				}
 			}
 		});
 		
 		// 충돌 타일과 떨어진 경우
-		self.onPart(lands, () => {
-			self.setAccelY(Platformer.Global.gravity);
+		self.onPart(SkyEngine.CollisionTile, (tile) => {
 			
-			if (self.getState() === 'walk') {
-				if (self.getScaleX() === -1) {
-					self.unstuckLeft();
-				} else {
-					self.unstuckRight();
+			let hw = tile.getCollider().getWidth() / 2;
+			let hh = tile.getCollider().getHeight() / 2;
+			
+			// 왼쪽 타일로부터 떨어진 경우
+			if (tile.getX() + hw <= self.getX() - shw) {
+				self.unstuckLeft();
+				
+				// 떨어지는 경우
+				if (tile.getY() - hh <= self.getY()) {
+					self.setAccelY(3000);
 				}
+			}
+			
+			// 오른쪽 타일로부터 떨어진 경우
+			else if (self.getX() + shw <= tile.getX() - hw) {
+				self.unstuckRight();
+				
+				// 떨어지는 경우
+				if (tile.getY() - hh <= self.getY()) {
+					self.setAccelY(3000);
+				}
+			}
+			
+			// 왼쪽도 오른쪽도 아니면, 점프한 경우
+			else {
+				self.setAccelY(3000);
 			}
 		});
 		

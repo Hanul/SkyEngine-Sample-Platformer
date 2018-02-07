@@ -1,3 +1,5 @@
+***이 프로젝트는 아직 개발중인 프로젝트입니다.***
+
 # SkyEngine-Sample-Platformer
 [SkyEngine](https://github.com/Hanul/SkyEngine)을 기반으로 만든 플랫포머 샘플 게임입니다.
 

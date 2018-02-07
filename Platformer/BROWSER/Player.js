@@ -7,19 +7,16 @@ Platformer.Player = CLASS({
 	params : () => {
 		
 		return {
-			centerY : 92,
 			accelY : Platformer.Global.gravity,
-			collider : SkyEngine.Rect({
-				width : 80,
-				height : 184
-			}),
 			stateNodes : {
 				idle : SkyEngine.Sprite({
+					y : -92,
 					srcs : [
 						Platformer.R('players/Green/alienGreen_stand.png')
 					]
 				}),
 				walk : SkyEngine.Sprite({
+					y : -92,
 					srcs : [
 						Platformer.R('players/Green/alienGreen_walk1.png'),
 						Platformer.R('players/Green/alienGreen_walk2.png')
@@ -28,6 +25,7 @@ Platformer.Player = CLASS({
 					isHiding : true
 				}),
 				jump : SkyEngine.Sprite({
+					y : -92,
 					srcs : [
 						Platformer.R('players/Green/alienGreen_jump.png')
 					],
@@ -52,6 +50,12 @@ Platformer.Player = CLASS({
 		SkyEngine.Screen.cameraFollowX({
 			target : self
 		});
+		
+		self.addCollider(SkyEngine.Rect({
+			y : -92,
+			width : 80,
+			height : 184
+		}));
 		
 		let shw = self.getCollider().getWidth() / 2;
 		let sh = self.getCollider().getHeight();

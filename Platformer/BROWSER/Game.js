@@ -1,10 +1,17 @@
-Platformer.Grass = CLASS({
+Platformer.Game = CLASS({
 	
 	preset : () => {
 		return VIEW;
 	},
 	
 	init : (inner) => {
+		
+		let bgm = SOUND({
+			mp3 : Platformer.R('Sound/bgm.mp3'),
+			ogg : Platformer.R('Sound/bgm.ogg')
+		});
+		
+		bgm.play();
 		
 		let rootNode = SkyEngine.Node({
 			scale : 0.5,
@@ -16,8 +23,6 @@ Platformer.Grass = CLASS({
 		
 		// 땅
 		let lands = SkyEngine.TileMap({
-			x : -100,
-			y : 300,
 			tileWidth : 128,
 			tileHeight : 128,
 			tileSet : {
@@ -37,6 +42,8 @@ Platformer.Grass = CLASS({
 				}
 			},
 			tileKeyMap : [
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[2, 0, 0, 0, 0, 0, 0, 0, 0],
 				[1, 1, 0, 1, 1, 1, 1, 1, 1]
 			]
@@ -47,6 +54,9 @@ Platformer.Grass = CLASS({
 		}).appendTo(rootNode);
 		
 		inner.on('close', () => {
+			bgm.stop();
+			bgm = undefined;
+			
 			rootNode.remove();
 		});
 	}

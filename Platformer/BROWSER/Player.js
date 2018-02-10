@@ -12,14 +12,14 @@ Platformer.Player = CLASS({
 				idle : SkyEngine.Sprite({
 					y : -92,
 					srcs : [
-						Platformer.R('players/Green/alienGreen_stand.png')
+						Platformer.R('image/alienGreen_stand.png')
 					]
 				}),
 				walk : SkyEngine.Sprite({
 					y : -92,
 					srcs : [
-						Platformer.R('players/Green/alienGreen_walk1.png'),
-						Platformer.R('players/Green/alienGreen_walk2.png')
+						Platformer.R('image/alienGreen_walk1.png'),
+						Platformer.R('image/alienGreen_walk2.png')
 					],
 					fps : 10,
 					isHiding : true
@@ -27,7 +27,7 @@ Platformer.Player = CLASS({
 				jump : SkyEngine.Sprite({
 					y : -92,
 					srcs : [
-						Platformer.R('players/Green/alienGreen_jump.png')
+						Platformer.R('image/alienGreen_jump.png')
 					],
 					isHiding : true
 				})
@@ -43,8 +43,8 @@ Platformer.Player = CLASS({
 		let lands = params.lands;
 		
 		let jumpSound = SOUND({
-			mp3 : Platformer.R('Sound/jump.mp3'),
-			ogg : Platformer.R('Sound/jump.ogg')
+			mp3 : Platformer.R('sound/jump.mp3'),
+			ogg : Platformer.R('sound/jump.ogg')
 		});
 		
 		SkyEngine.Screen.cameraFollowX({
@@ -153,6 +153,13 @@ Platformer.Player = CLASS({
 			// 왼쪽도 오른쪽도 아니면, 점프한 경우
 			else {
 				self.setAccelY(3000);
+			}
+		});
+		
+		// 화면 밖으로 나가면 사망
+		self.on('offscreen', () => {
+			if (self.getY() > 1000) {
+				
 			}
 		});
 		

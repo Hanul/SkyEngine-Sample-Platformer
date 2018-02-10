@@ -7,8 +7,8 @@ Platformer.Game = CLASS({
 	init : (inner) => {
 		
 		let bgm = SOUND({
-			mp3 : Platformer.R('Sound/bgm.mp3'),
-			ogg : Platformer.R('Sound/bgm.ogg')
+			mp3 : Platformer.R('sound/bgm.mp3'),
+			ogg : Platformer.R('sound/bgm.ogg')
 		});
 		
 		bgm.play();
@@ -16,7 +16,7 @@ Platformer.Game = CLASS({
 		let rootNode = SkyEngine.Node({
 			scale : 0.5,
 			c : SkyEngine.Background({
-				src : Platformer.R('Backgrounds/blue_land.png'),
+				src : Platformer.R('image/blue_land.png'),
 				isNotToRepeatY : true
 			})
 		}).appendTo(SkyEngine.Screen);
@@ -29,14 +29,14 @@ Platformer.Game = CLASS({
 				1 : () => {
 					return SkyEngine.CollisionTile({
 						c : SkyEngine.Image({
-							src : Platformer.R('Ground/Grass/grass.png')
+							src : Platformer.R('image/grass.png')
 						})
 					});
 				},
 				2 : () => {
 					return SkyEngine.Tile({
 						c : SkyEngine.Image({
-							src : Platformer.R('Tiles/bush.png')
+							src : Platformer.R('image/signRight.png')
 						})
 					});
 				}
